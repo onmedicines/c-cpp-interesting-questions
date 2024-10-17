@@ -1,0 +1,18 @@
+int maxNeighbours = 0;
+
+    for (int i = 0; i < size[0]; i++) {
+        for (int j = 0; j < size[1]; j++) {
+            if (matrix[i][j] == 1) {
+                brides[indexForBrides].x = i;
+                brides[indexForBrides].y = j;
+                brides[indexForBrides].numberOfNeighbours = bridesInNeighbourhood(matrix, size, i, j);
+                if (brides[indexForBrides].numberOfNeighbours > maxNeighbours) maxNeighbours = brides[indexForBrides].numberOfNeighbours;
+                indexForBrides++;
+            }
+
+        }
+    }
+
+    int bridesWithMaxNeighbours = 0;
+
+    indexForBrides = 0;
