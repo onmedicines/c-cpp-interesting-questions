@@ -59,10 +59,6 @@ void main() {
   int size[2];
 
   printf("Please enter the size of the matrix.\n");
-  // printf("Rows: ");
-  // scanf("%d", &size[0]);
-  // printf("Columns: ");
-  // scanf("%d", &size[1]);
   scanf("%d %d", &size[0], &size[1]);
 
   int matrix[size[0]][size[1]];
@@ -73,9 +69,16 @@ void main() {
   for (int i = 0; i < size[0]; i++) {
     for (int j = 0; j < size[1]; j++) {
       scanf("%d", &matrix[i][j]);
-      if (matrix[i][j] == 1)
+      if (i == 0 && j == 0)
+        continue;
+      else if (matrix[i][j] == 1)
         numberOfBrides++;
     }
+  }
+
+  if (numberOfBrides == 0) {
+    printf("No brides found.");
+    return;
   }
 
   struct Bride brides[numberOfBrides];
@@ -84,7 +87,9 @@ void main() {
   int maxNeighbours = 0;
   for (int i = 0; i < size[0]; i++) {
     for (int j = 0; j < size[1]; j++) {
-      if (matrix[i][j] == 1) {
+      if (i == 0 && j == 0)
+        continue;
+      else if (matrix[i][j] == 1) {
         brides[index].x = i;
         brides[index].y = j;
         brides[index].numberOfNeighbours =
@@ -98,7 +103,6 @@ void main() {
   index = 0;
 
   struct Bride favourableBride;
-  favourableBride.distanceFromBoy = 0;
   int numberOfBridesWithMaxQualities = 0;
   for (int i = 0; i < numberOfBrides; i++) {
     if (brides[i].numberOfNeighbours == maxNeighbours) {
@@ -141,13 +145,6 @@ void main() {
     printf("Polygamy not allowed!\n");
     return;
   }
-
-  // for (int i = 0; i < numberOfBridesWithMaxQualities; i++) {
-  //   if (bridesWithMaxQualities[i].distanceFromBoy == minDistanceFromBoy) {
-  //     favourableBride = bridesWithMaxQualities[i];
-  //   }
-  // }
-
 
   printf("%d:%d:%d\n", favourableBride.x + 1, favourableBride.y + 1,
     favourableBride.numberOfNeighbours);
